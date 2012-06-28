@@ -1,8 +1,13 @@
+require 'grid'
+
 img_height = 24
 img_width = 24
 
-app_height = img_height * img_height
-app_width = img_width * img_width
+row_num = 24
+col_num = 24
+
+app_height = img_height * row_num
+app_width = img_width * col_num
 
 margin = img_height / 2
 wall_size = 2 * margin
