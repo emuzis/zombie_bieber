@@ -72,16 +72,29 @@ Shoes.app :height => app_height, :width => app_width do
   
   
   keypress do |k|
+    position = check_path(cursor[:x], cursor[:y], margin, wall_size)
+    
+    cell = grid[position[:y]][position[:x]]
+    
+    # para grid[cell[:y]][cell[:x]]
+    
     case k
     when :up
-      @dot.move(cursor[:x], cursor[:y] -= wall_size) if cursor[:y] - wall_size > 0
+      @dot.move(cursor[:x], cursor[:y] -= wall_size) if cursor[:y] - wall_size > 0 if !cell[:top]
     when :down
-      @dot.move(cursor[:x], cursor[:y] += wall_size) if cursor[:y] + wall_size < app_height - (margin + img_height - 1)
+      @dot.move(cursor[:x], cursor[:y] += wall_size) if cursor[:y] + wall_size < app_height - (margin + img_height - 1) if !cell[:bottom]
     when :right
-      @dot.move(cursor[:x] += wall_size, cursor[:y]) if cursor[:x] + wall_size < app_width - (margin + img_width - 1)
+      @dot.move(cursor[:x] += wall_size, cursor[:y]) if cursor[:x] + wall_size < app_width - (margin + img_width - 1) if !cell[:right]
     when :left
-      @dot.move(cursor[:x] -= wall_size, cursor[:y]) if cursor[:x] - wall_size > 0
+      @dot.move(cursor[:x] -= wall_size, cursor[:y]) if cursor[:x] - wall_size > 0 if !cell[:left]
     end
   end
 
+end
+
+def check_path x, y, margin, wall_size
+  value = {}
+  value[:x] = (x - margin - 1) / wall_size
+  value[:y] = (y - margin - 1) / wall_size
+  value
 end
