@@ -14,24 +14,6 @@ app_height = (img_height + border * 2) * 24 + margin * 2
 app_width = (img_height + border * 2) * 24 + margin * 2
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# app_height = (img_height + 2) * row_num
-# app_width = (img_width + 2) * col_num
-# 
-# margin = img_height / 2
 wall_size = (2 * margin) + (border * 2)
 
 cursor = { :x => margin + border, :y => margin + border }
