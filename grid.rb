@@ -8,7 +8,8 @@ class Grid
   
   def initialize(height, width)
     @height = height
-    @width = width
+    @width  = width
+    
     @grid = Array.new(height) { Array.new(width, 0) }
     generate_grid
     
