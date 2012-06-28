@@ -82,6 +82,7 @@ def moving (object, direction)
   @@steps_count += 1 if position_before != position_after
   if @@end_point[:x] == position_after[:x] && @@end_point[:y] == position_after[:y]
     alert("Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps")
-    # s.clear()
+    return true
   end
+  return false
 end
