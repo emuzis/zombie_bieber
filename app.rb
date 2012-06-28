@@ -1,4 +1,4 @@
-require '@@grid'
+require 'grid'
 
 IMG_HEIGHT  = 24
 IMG_WIDTH   = 24
