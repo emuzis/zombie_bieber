@@ -41,7 +41,7 @@ class Grid
         return_map[y][x][:left]    = ((cell & W) == 0) ? true : false
         return_map[y][x][:right]   = ((cell & E) == 0) ? true : false
       end
-    end
+    end  
     return_map
   end
   
