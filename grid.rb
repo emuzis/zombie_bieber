@@ -9,9 +9,7 @@ class Grid
   def initialize(height, width)
     @height = height
     @width  = width
-    @seed   = 10
-
-    srand(@seed)
+    
     @grid = Array.new(height) { Array.new(width, 0) }
     generate_grid
     
