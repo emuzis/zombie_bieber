@@ -20,7 +20,7 @@ BOTTOM_LEFT   = { :x => MARGIN, :y => APP_WIDTH - MARGIN }
 
 
 Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
-  s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
+  # s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
     cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
     grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
     start_time  = Time.now
@@ -55,7 +55,7 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
     @bieber.move(cursor[:x], cursor[:y])
   
     keypress do |k|
-      position_before = check_path(cursor[:x], cursor[:y], MARGIN, BLOCK_SIZE)
+      position_before = check_path(cursor[:x], cursor[:y])
     
       cell = grid[position_before[:y]][position_before[:x]]
       case k
@@ -68,14 +68,14 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
       when :left
         @bieber.move(cursor[:x] -= BLOCK_SIZE, cursor[:y]) if cursor[:x] - BLOCK_SIZE > 0 if !cell[:left]
       end
-      position_after = check_path(cursor[:x], cursor[:y], MARGIN, BLOCK_SIZE)
+      position_after = check_path(cursor[:x], cursor[:y])
       steps_count += 1 if position_before != position_after
       end_time = Time.now
       if end_point[:x] == position_after[:x] && end_point[:y] == position_after[:y]
         alert("Finished in #{(end_time - start_time).round(0)} seconds and #{steps_count} steps")
         # s.clear()
       end
-    end
+    # end
   end
 end
 
