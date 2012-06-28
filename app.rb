@@ -20,7 +20,7 @@ BOTTOM_LEFT   = { :x => MARGIN, :y => APP_WIDTH - MARGIN }
 Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
   s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
     @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
-    @@grid        = @@grid.new(ROW_NUM,COL_NUM).@@grid_hash
+    @@grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
     @@start_time  = Time.now
     @@steps_count = 0
     @@end_point   = { :x => rand(COL_NUM), :y => rand(ROW_NUM) }
