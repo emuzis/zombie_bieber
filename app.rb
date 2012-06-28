@@ -1,20 +1,23 @@
 require 'grid'
 
-IMG_HEIGHT  = 24
-IMG_WIDTH   = 24
+IMG_HEIGHT  = 48
+IMG_WIDTH   = 48
 BORDER      = 1
-ROW_NUM     = 24
-COL_NUM     = 24
+ROW_NUM     = 10
+COL_NUM     = 10
 MARGIN      = IMG_HEIGHT / 2
 APP_HEIGHT  = (IMG_HEIGHT + BORDER * 2) * ROW_NUM + MARGIN * 2
-APP_WIDTH   = (IMG_HEIGHT + BORDER * 2) * COL_NUM + MARGIN * 2
+APP_WIDTH   = (IMG_WIDTH + BORDER * 2) * COL_NUM + MARGIN * 2
 
-BLOCK_SIZE  = (2 * MARGIN) + (BORDER * 2)
+BLOCK_SIZE  = (IMG_HEIGHT) + (BORDER * 2)
 
 TOP_LEFT      = { :x => MARGIN, :y => MARGIN }
 TOP_RIGHT     = { :x => APP_HEIGHT - MARGIN, :y => MARGIN }
 BOTTOM_RIGHT  = { :x => APP_HEIGHT - MARGIN, :y => APP_WIDTH - MARGIN }
 BOTTOM_LEFT   = { :x => MARGIN, :y => APP_WIDTH - MARGIN }
+
+BIEBER = "bieber2.jpeg"
+FINISH = "finish.jpeg"
 
 
 Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
@@ -25,7 +28,7 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
     @@steps_count = 0
     @@end_point   = { :x => rand(COL_NUM), :y => rand(ROW_NUM) }
     
-    finish_flag = stack { image "finish.jpeg" }
+    finish_flag = stack { image FINISH, :width => IMG_WIDTH, :height => IMG_HEIGHT }
     finish_flag.move((TOP_LEFT[:x] + @@end_point[:x] * BLOCK_SIZE), (TOP_LEFT[:y] + @@end_point[:y] * BLOCK_SIZE))
     
     @@grid.each_with_index do |row, y|
@@ -49,7 +52,7 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
       end
     end
   
-    bieber = stack { image "bieber.jpeg" }
+    bieber = stack { image BIEBER, :width => IMG_WIDTH, :height => IMG_HEIGHT }
     bieber.move(@@cursor[:x], @@cursor[:y])
     
     keypress do |k|
