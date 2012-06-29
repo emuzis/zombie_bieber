@@ -20,68 +20,73 @@ BOTTOM_LEFT   = { :x => MARGIN, :y => APP_HEIGHT - MARGIN }
 BIEBER = "bieber2.jpeg"
 FINISH = "zombieber.png"
 
+def start_game
+  # dialog.close if dialog
 
-Shoes.app(:height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber") do
-  background white
-  s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
-    @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
-    @@grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
-    @@start_time  = Time.now
-    @@steps_count = 0
-    @@end_point   = { :x => rand(COL_NUM), :y => rand(ROW_NUM) }
+  Shoes.app(:height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber") do
+    background white
+    s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
+      @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
+      @@grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
+      @@start_time  = Time.now
+      @@steps_count = 0
+      @@end_point   = { :x => rand(COL_NUM), :y => rand(ROW_NUM) }
     
-    finish_flag = stack { image FINISH, :width => IMG_WIDTH, :height => IMG_HEIGHT }
-    finish_flag.move((TOP_LEFT[:x] + @@end_point[:x] * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + @@end_point[:y] * BLOCK_SIZE[:y]))
+      finish_flag = stack { image FINISH, :width => IMG_WIDTH, :height => IMG_HEIGHT }
+      finish_flag.move((TOP_LEFT[:x] + @@end_point[:x] * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + @@end_point[:y] * BLOCK_SIZE[:y]))
     
-    @@grid.each_with_index do |row, y|
-      row.each_with_index do |box, x|
-        if box[:top]
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]))
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y])-1, (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y])-1)
-        end
-        if box[:bottom]
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y])-1, (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y])-1)
-        end
-        if box[:left]
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
-          line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
-        end
-        if box[:right]
-          line((TOP_LEFT[:x] + (x+ 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
-          line((TOP_LEFT[:x] + (x+ 1) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+      @@grid.each_with_index do |row, y|
+        row.each_with_index do |box, x|
+          if box[:top]
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]))
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y])-1, (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y])-1)
+          end
+          if box[:bottom]
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y])-1, (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y])-1)
+          end
+          if box[:left]
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+            line((TOP_LEFT[:x] + x * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+          end
+          if box[:right]
+            line((TOP_LEFT[:x] + (x+ 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x]), (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+            line((TOP_LEFT[:x] + (x+ 1) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + y * BLOCK_SIZE[:y]), (TOP_LEFT[:x] + (x + 1) * BLOCK_SIZE[:x])-1, (TOP_LEFT[:y] + (y + 1) * BLOCK_SIZE[:y]))
+          end
         end
       end
-    end
   
-    @bieber = stack { image BIEBER, :width => IMG_WIDTH, :height => IMG_HEIGHT }
-    @bieber.move(@@cursor[:x], @@cursor[:y])
+      @bieber = stack { image BIEBER, :width => IMG_WIDTH, :height => IMG_HEIGHT }
+      @bieber.move(@@cursor[:x], @@cursor[:y])
     
-    keypress do |k|
-      moving(@bieber, k)
-    end
-  end
-
-  s = UDPSocket.new
-  s.bind('0.0.0.0', 6868)
-  Thread.start do
-    while true do
-      text, sender = s.recvfrom(4096)
-      
-      text = text.split(',')[0]
-      action = nil
-      case text
-        when '32' then action = :left
-        when '64' then action = :right
-        when '8'  then action = :up
-        when '16' then action = :down
+      keypress do |k|
+        moving(@bieber, k)
       end
+    end
+
+    s = UDPSocket.new
+    s.bind('0.0.0.0', 6868)
+    Thread.start do
+      while true do
+        text, sender = s.recvfrom(4096)
+      
+        text = text.split(',')[0]
+        action = nil
+        case text
+          when '32' then action = :left
+          when '64' then action = :right
+          when '8'  then action = :up
+          when '16' then action = :down
+        end
     
-      moving(@bieber, action) if action
+        moving(@bieber, action) if action
+      end
     end
   end
-
 end
+
+start_game
+
 
 def check_path x, y
   value = {}
@@ -107,10 +112,19 @@ def moving (object, direction)
   @@steps_count += 1 if position_before != position_after
   if @@end_point[:x] == position_after[:x] && @@end_point[:y] == position_after[:y]
     # alert("Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps")
-    Shoes.app(:height => 100, :width => 500, :title => "Zombieber") do
-      para "Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps"
-    end
+    game_over self
     return true
   end
   return false
+end
+
+def game_over game_window
+  game_window.close
+  Shoes.app(:height => 100, :width => 500, :title => "Congrats!") do
+    para "Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps"
+    button "restart game?" do
+      start_game
+      close
+    end
+  end
 end
