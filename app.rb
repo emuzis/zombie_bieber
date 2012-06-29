@@ -20,10 +20,18 @@ BOTTOM_LEFT   = { :x => MARGIN, :y => APP_HEIGHT - MARGIN }
 BIEBER = "bieber2.jpeg"
 FINISH = "zombieber.png"
 
-def start_game
-  # dialog.close if dialog
+def welcome_screen
+  Shoes.app(:height => 300, :width => 300, :title => "Welcome", :resizable => false) do
+    para "welcome"
+    button "Start!!" do
+      start_game
+      close
+    end
+  end
+end
 
-  Shoes.app(:height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber") do
+def start_game
+  Shoes.app(:height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber", :resizable => false) do
     background white
     s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
       @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
@@ -85,7 +93,18 @@ def start_game
   end
 end
 
-start_game
+def game_over game_window
+  game_window.close
+  Shoes.app(:height => 100, :width => 500, :title => "Congrats!", :resizable => false) do
+    para "Finished in #{@@steps_count} steps and #{(Time.now - @@start_time).round(0)} seconds"
+    button "restart game?" do
+      start_game
+      close
+    end
+  end
+end
+
+welcome_screen
 
 
 def check_path x, y
@@ -118,13 +137,3 @@ def moving (object, direction)
   return false
 end
 
-def game_over game_window
-  game_window.close
-  Shoes.app(:height => 100, :width => 500, :title => "Congrats!") do
-    para "Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps"
-    button "restart game?" do
-      start_game
-      close
-    end
-  end
-end
