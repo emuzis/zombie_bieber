@@ -1,8 +1,8 @@
 require 'grid'
 require 'socket'
 
-IMG_HEIGHT  = 48
-IMG_WIDTH   = 100
+IMG_HEIGHT  = 64
+IMG_WIDTH   = 64
 BORDER      = 1
 ROW_NUM     = 10
 COL_NUM     = 10
@@ -62,21 +62,23 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
   end
 
   s = UDPSocket.new
-  s.bind('0.0.0.0', 6868)  
-  every 1 do
-    text, sender = s.recvfrom(4096)
-    text = text.split(',')[0]
-    action = nil
-    case text
-      when '32' then action = :left
-      when '64' then action = :right
-      when '8'  then action = :up
-      when '16' then action = :down
-    end
+  s.bind('0.0.0.0', 6868)
+  Thread.start do
+    while true do
+      Timeout.timeout(0.5) do
+        text, sender = s.recvfrom(4096)
+        text = text.split(',')[0]
+        action = nil
+        case text
+          when '32' then action = :left
+          when '64' then action = :right
+          when '8'  then action = :up
+          when '16' then action = :down
+        end
       
-    moving(@bieber, action) if action
-
-    # @bieber.move(@@cursor[:x], @@cursor[:y] += BLOCK_SIZE)
+        moving(@bieber, action) if action
+      end
+    end
   end
 
 end
