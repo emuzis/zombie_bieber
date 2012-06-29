@@ -65,6 +65,8 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
   s.bind('0.0.0.0', 6868)
   Thread.start do
     while true do
+      test    = ""
+      sender  = ""
       Timeout.timeout(0.5) do
         text, sender = s.recvfrom(4096)
       end
