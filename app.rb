@@ -119,10 +119,10 @@ def start_game size
         text = text.split(',')[0]
         action = nil
         case text
-          when '32' then action = :left
-          when '64' then action = :right
-          when '8'  then action = :up
-          when '16' then action = :down
+          when /^sl/ then action = :left
+          when /^sr/ then action = :right
+          when /^b/ then action = :up
+          when /^f/ then action = :down
         end
     
         moving(@bieber, action) if action
