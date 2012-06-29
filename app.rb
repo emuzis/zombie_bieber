@@ -55,7 +55,7 @@ end
 
 
 def start_game size
-  
+  @@thread.exit if @@thread
   @@img_height = instance_eval(size.to_s.upcase)[:img_height]
   @@img_width = instance_eval(size.to_s.upcase)[:img_width]
   
@@ -81,7 +81,7 @@ def start_game size
       @@grid        = Grid.new(@@row_num,@@col_num).grid_hash
       @@start_time  = Time.now
       @@steps_count = 0
-      @@end_point   = { :x => rand(@@col_num / 2 + 1) + @@col_num / 2, :y => rand(@@row_num / 2 + 1) + @@row_num / 2}
+      @@end_point   = { :x => rand(@@col_num / 2) + @@col_num / 2, :y => rand(@@row_num / 2) + @@row_num / 2}
     
       finish_flag = stack { image FINISH, :width => @@img_width, :height => @@img_height }
       finish_flag.move((top_left[:x] + @@end_point[:x] * @@block_size[:x]), (top_left[:y] + @@end_point[:y] * @@block_size[:y]))
