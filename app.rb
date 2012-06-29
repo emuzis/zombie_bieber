@@ -1,11 +1,23 @@
 require 'grid'
 require 'socket'
 
+<<<<<<< HEAD
 BORDER      = 1
 EASY        = {:row => 4,   :col => 4, :img_height => 48, :img_width => 48}
 MEDIUM      = {:row => 10,  :col => 10, :img_height => 48, :img_width => 48}
 HARD        = {:row => 15,  :col => 15, :img_height => 48, :img_width => 48}
 JOSS        = {:row => 60,  :col => 60, :img_height => 10, :img_width => 10}
+=======
+IMG_HEIGHT  = 48
+IMG_WIDTH   = 48
+BORDER      = 2
+EASY        = {:row => 3,   :col => 3}
+MEDIUM      = {:row => 10,  :col => 10}
+HARD        = {:row => 15,  :col => 15}
+MARGIN      = IMG_HEIGHT / 2
+
+BLOCK_SIZE  = { :x => (IMG_WIDTH) + (BORDER), :y => (IMG_HEIGHT) + (BORDER) }
+>>>>>>> 7b29bc3b925f55aa11d95e653c8eb6a901a826ee
 
 BIEBER    = "bieber2.jpeg"
 FINISH    = "zombieber.png"
@@ -65,21 +77,34 @@ def start_game size
   @@row_num = instance_eval(size.to_s.upcase)[:row]
   @@col_num = instance_eval(size.to_s.upcase)[:col]
   
+<<<<<<< HEAD
   @@app_height    = (@@img_height + BORDER * 2) * @@row_num + @@margin * 2
   @@app_width     = (@@img_width + BORDER * 2) * @@col_num + @@margin * 2
   top_left      = { :x => @@margin, :y => @@margin }
   top_right     = { :x => @@app_width - @@margin, :y => @@margin }
   bottom_right  = { :x => @@app_width - @@margin, :y => @@app_height - @@margin }
   bottom_left   = { :x => @@margin, :y => @@app_height - @@margin }
+=======
+  @@app_height    = (IMG_HEIGHT + BORDER) * @@row_num + MARGIN * 2
+  @@app_width     = (IMG_WIDTH + BORDER) * @@col_num + MARGIN * 2
+  top_left      = { :x => MARGIN, :y => MARGIN }
+  top_right     = { :x => @@app_width - MARGIN, :y => MARGIN }
+  bottom_right  = { :x => @@app_width - MARGIN, :y => @@app_height - MARGIN }
+  bottom_left   = { :x => MARGIN, :y => @@app_height - MARGIN }
+>>>>>>> 7b29bc3b925f55aa11d95e653c8eb6a901a826ee
   Shoes.app(:height => @@app_height, :width => @@app_width, :title => "Zombieber", :resizable => false) do
     background white
     strokewidth(2)
     s = stack :width => @@app_width, :height => @@app_height do
+<<<<<<< HEAD
       @@cursor      = { :x => @@margin + BORDER, :y => @@margin + BORDER }
+=======
+      @@cursor      = { :x => MARGIN + BORDER / 2, :y => MARGIN + BORDER / 2 }
+>>>>>>> 7b29bc3b925f55aa11d95e653c8eb6a901a826ee
       @@grid        = Grid.new(@@row_num,@@col_num).grid_hash
       @@start_time  = Time.now
       @@steps_count = 0
-      @@end_point   = { :x => rand(@@col_num / 2) + @@col_num / 2, :y => rand(@@row_num / 2) + @@row_num / 2}
+      @@end_point   = { :x => rand(@@col_num / 2 + 1) + @@col_num / 2, :y => rand(@@row_num / 2 + 1) + @@row_num / 2}
     
       finish_flag = stack { image FINISH, :width => @@img_width, :height => @@img_height }
       finish_flag.move((top_left[:x] + @@end_point[:x] * @@block_size[:x]), (top_left[:y] + @@end_point[:y] * @@block_size[:y]))
