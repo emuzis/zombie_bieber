@@ -67,17 +67,18 @@ Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
     while true do
       Timeout.timeout(0.5) do
         text, sender = s.recvfrom(4096)
-        text = text.split(',')[0]
-        action = nil
-        case text
-          when '32' then action = :left
-          when '64' then action = :right
-          when '8'  then action = :up
-          when '16' then action = :down
-        end
-      
-        moving(@bieber, action) if action
       end
+      
+      text = text.split(',')[0]
+      action = nil
+      case text
+        when '32' then action = :left
+        when '64' then action = :right
+        when '8'  then action = :up
+        when '16' then action = :down
+      end
+    
+      moving(@bieber, action) if action
     end
   end
 
