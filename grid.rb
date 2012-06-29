@@ -9,25 +9,24 @@ class Grid
   def initialize(height, width)
     @height = height
     @width  = width
+    @seed = srand(rand(0xFFFF_FFFF))
     
     @grid = Array.new(height) { Array.new(width, 0) }
-    generate_grid
+    carve_passages_from(0, 0)
     
     @grid_hash = get_maze
   end
   
-  def generate_grid
-    @height.times do |y|
-      @width.times do |x|
-        dirs = []
-        dirs << N if y > 0
-        dirs << W if x > 0
+  def carve_passages_from(cx, cy)
+    directions = [N, S, E, W].sort_by{rand}
 
-        if (dir = dirs[rand(dirs.length)])
-          nx, ny = x + DX[dir], y + DY[dir]
-          @grid[y][x] |= dir
-          @grid[ny][nx] |= OPPOSITE[dir]
-        end
+    directions.each do |direction|
+      nx, ny = cx + DX[direction], cy + DY[direction]
+
+      if ny.between?(0, @grid.length-1) && nx.between?(0, @grid[ny].length-1) && @grid[ny][nx] == 0
+        @grid[cy][cx] |= direction
+        @grid[ny][nx] |= OPPOSITE[direction]
+        carve_passages_from(nx, ny)
       end
     end
   end
