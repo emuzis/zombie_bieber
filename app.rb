@@ -3,13 +3,13 @@ require 'socket'
 
 IMG_HEIGHT  = 48
 IMG_WIDTH   = 48
-BORDER      = 1
-EASY        = {:row => 4,   :col => 4}
+BORDER      = 2
+EASY        = {:row => 3,   :col => 3}
 MEDIUM      = {:row => 10,  :col => 10}
 HARD        = {:row => 15,  :col => 15}
 MARGIN      = IMG_HEIGHT / 2
 
-BLOCK_SIZE  = { :x => (IMG_WIDTH) + (BORDER * 2), :y => (IMG_HEIGHT) + (BORDER * 2) }
+BLOCK_SIZE  = { :x => (IMG_WIDTH) + (BORDER), :y => (IMG_HEIGHT) + (BORDER) }
 
 BIEBER    = "bieber2.jpeg"
 FINISH    = "zombieber.png"
@@ -55,8 +55,8 @@ def start_game size
   @@row_num = instance_eval(size.to_s.upcase)[:row]
   @@col_num = instance_eval(size.to_s.upcase)[:col]
   
-  @@app_height    = (IMG_HEIGHT + BORDER * 2) * @@row_num + MARGIN * 2
-  @@app_width     = (IMG_WIDTH + BORDER * 2) * @@col_num + MARGIN * 2
+  @@app_height    = (IMG_HEIGHT + BORDER) * @@row_num + MARGIN * 2
+  @@app_width     = (IMG_WIDTH + BORDER) * @@col_num + MARGIN * 2
   top_left      = { :x => MARGIN, :y => MARGIN }
   top_right     = { :x => @@app_width - MARGIN, :y => MARGIN }
   bottom_right  = { :x => @@app_width - MARGIN, :y => @@app_height - MARGIN }
@@ -64,11 +64,11 @@ def start_game size
   Shoes.app(:height => @@app_height, :width => @@app_width, :title => "Zombieber", :resizable => false) do
     background white
     s = stack :width => @@app_width, :height => @@app_height do
-      @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
+      @@cursor      = { :x => MARGIN + BORDER / 2, :y => MARGIN + BORDER / 2 }
       @@grid        = Grid.new(@@row_num,@@col_num).grid_hash
       @@start_time  = Time.now
       @@steps_count = 0
-      @@end_point   = { :x => rand(@@col_num / 2) + @@col_num / 2, :y => rand(@@row_num / 2) + @@row_num / 2}
+      @@end_point   = { :x => rand(@@col_num / 2 + 1) + @@col_num / 2, :y => rand(@@row_num / 2 + 1) + @@row_num / 2}
     
       finish_flag = stack { image FINISH, :width => IMG_WIDTH, :height => IMG_HEIGHT }
       finish_flag.move((top_left[:x] + @@end_point[:x] * BLOCK_SIZE[:x]), (top_left[:y] + @@end_point[:y] * BLOCK_SIZE[:y]))
