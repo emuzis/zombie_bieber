@@ -23,9 +23,10 @@ SOCKET.bind('0.0.0.0', 6868)
 
 
 def landing_page parent_window, mode
+  text = "Finished in #{@@steps_count} steps and #{(Time.now - @@start_time).round(0)} seconds" if mode == :game_over
   parent_window.close if parent_window
   Shoes.app(:height => 720, :width => 960, :title => "Welcome", :resizable => false) do
-    stack { para "ASDASDAS", :fill => "FFFFFF" }
+    
     welcome_img = stack { image instance_eval mode.to_s.upcase }
     @option = :easy
     opton_box = stack {
@@ -39,29 +40,15 @@ def landing_page parent_window, mode
         close
       end
     }
+    
+    text = stack { caption text, :fill => "FFFFFF" }
     welcome_img.move(0,0)
     opton_box.move(650, 400)
     start_btn.move(650, 450)
+    text.move(0,0)
   end
 end
 
-def game_over game_window
-  game_window.close
-  @@thread.exit
-  Shoes.app(:height => 720, :width => 960, :title => "Congrats!", :resizable => false) do
-    game_over_img = stack { image GAME_OVER }
-    restart_btn = stack {
-      button "restart game?" do
-        start_game :easy
-        close
-      end
-    }
-    game_over_img.move(0,0)
-    restart_btn.move(500,50)
-    para "Finished in #{@@steps_count} steps and #{(Time.now - @@start_time).round(0)} seconds"
-    
-  end
-end
 
 def start_game size
   
