@@ -106,7 +106,10 @@ def moving (object, direction)
   position_after = check_path(@@cursor[:x], @@cursor[:y])
   @@steps_count += 1 if position_before != position_after
   if @@end_point[:x] == position_after[:x] && @@end_point[:y] == position_after[:y]
-    alert("Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps")
+    # alert("Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps")
+    Shoes.app(:height => 100, :width => 500, :title => "Zombieber") do
+      para "Finished in #{(Time.now - @@start_time).round(0)} seconds and #{@@steps_count} steps"
+    end
     return true
   end
   return false
