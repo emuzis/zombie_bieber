@@ -1,7 +1,6 @@
 require 'grid'
 require 'socket'
 
-<<<<<<< HEAD
 BORDER      = 1
 EASY        = {:row => 4,   :col => 4, :img_height => 48, :img_width => 48}
 MEDIUM      = {:row => 10,  :col => 10, :img_height => 48, :img_width => 48}
