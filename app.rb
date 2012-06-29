@@ -21,7 +21,7 @@ BIEBER = "bieber2.jpeg"
 FINISH = "finish.jpeg"
 
 
-Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH do
+Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber" do
   s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
     @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
     @@grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
