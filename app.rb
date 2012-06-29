@@ -5,7 +5,7 @@ BORDER      = 1
 EASY        = {:row => 4,   :col => 4, :img_height => 48, :img_width => 48}
 MEDIUM      = {:row => 10,  :col => 10, :img_height => 48, :img_width => 48}
 HARD        = {:row => 15,  :col => 15, :img_height => 48, :img_width => 48}
-JOSS        = {:row => 60,  :col => 60, :img_height => 10, :img_width => 10}
+JOSS        = {:row => 60,  :col => 60, :img_height => 12, :img_width => 12}
 
 BIEBER    = "bieber2.jpeg"
 FINISH    = "zombieber.png"
