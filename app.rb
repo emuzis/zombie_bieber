@@ -20,6 +20,11 @@ BOTTOM_LEFT   = { :x => MARGIN, :y => APP_HEIGHT - MARGIN }
 BIEBER = "bieber2.jpeg"
 FINISH = "zombieber.png"
 
+SOCKET = UDPSocket.new
+SOCKET.bind('0.0.0.0', 6868)
+
+@@thread = nil
+
 def welcome_screen
   Shoes.app(:height => 300, :width => 300, :title => "Welcome", :resizable => false) do
     para "welcome"
@@ -72,11 +77,10 @@ def start_game
       end
     end
 
-    s = UDPSocket.new
-    s.bind('0.0.0.0', 6868)
-    Thread.start do
-      while true do
-        text, sender = s.recvfrom(4096)
+
+    @@thread = Thread.start do
+      while SOCKET do
+        text, sender = SOCKET.recvfrom(4096)
       
         text = text.split(',')[0]
         action = nil
@@ -95,6 +99,7 @@ end
 
 def game_over game_window
   game_window.close
+  @@thread.exit
   Shoes.app(:height => 100, :width => 500, :title => "Congrats!", :resizable => false) do
     para "Finished in #{@@steps_count} steps and #{(Time.now - @@start_time).round(0)} seconds"
     button "restart game?" do
