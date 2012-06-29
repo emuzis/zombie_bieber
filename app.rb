@@ -18,10 +18,11 @@ BOTTOM_RIGHT  = { :x => APP_WIDTH - MARGIN, :y => APP_HEIGHT - MARGIN }
 BOTTOM_LEFT   = { :x => MARGIN, :y => APP_HEIGHT - MARGIN }
 
 BIEBER = "bieber2.jpeg"
-FINISH = "finish.jpeg"
+FINISH = "zombieber.png"
 
 
-Shoes.app :height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber" do
+Shoes.app(:height => APP_HEIGHT, :width => APP_WIDTH, :title => "Zombieber") do
+  background white
   s = stack :width => APP_WIDTH, :height => APP_HEIGHT do
     @@cursor      = { :x => MARGIN + BORDER, :y => MARGIN + BORDER }
     @@grid        = Grid.new(ROW_NUM,COL_NUM).grid_hash
