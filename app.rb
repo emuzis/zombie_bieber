@@ -68,7 +68,7 @@ def start_game size
       @@grid        = Grid.new(@@row_num,@@col_num).grid_hash
       @@start_time  = Time.now
       @@steps_count = 0
-      @@end_point   = { :x => rand(@@col_num), :y => rand(@@row_num) }
+      @@end_point   = { :x => rand(@@col_num / 2) + @@col_num / 2, :y => rand(@@row_num / 2) + @@row_num / 2}
     
       finish_flag = stack { image FINISH, :width => IMG_WIDTH, :height => IMG_HEIGHT }
       finish_flag.move((top_left[:x] + @@end_point[:x] * BLOCK_SIZE[:x]), (top_left[:y] + @@end_point[:y] * BLOCK_SIZE[:y]))
